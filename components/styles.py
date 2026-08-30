@@ -35,12 +35,20 @@ def apply_styles(login: bool = False) -> None:
             padding: .5rem 1.35rem 1.35rem;
         }}
         .login-wrap {{
-            max-width: 520px;
-            margin: 3rem auto 1.2rem;
+            max-width: 420px;
+            margin: 1.6rem auto .85rem;
             background: rgba(255, 255, 255, .93);
             border-radius: 24px;
-            padding: 1.35rem 1.6rem;
+            padding: .85rem 1.1rem;
             box-shadow: 0 18px 50px rgba(7, 31, 28, .20);
+        }}
+        .login-wrap h1 {{
+            font-size: clamp(1.65rem, 4vw, 2.25rem);
+            margin: .2rem 0 .35rem;
+        }}
+        .login-wrap p {{
+            margin-bottom: .25rem;
+            font-size: .92rem;
         }}
         """
 
