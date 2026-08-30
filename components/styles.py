@@ -103,6 +103,21 @@ def apply_styles(login: bool = False) -> None:
         [data-testid="stHeader"] { background: transparent; }
         [data-testid="stSidebar"] { background: #102a27; }
         [data-testid="stSidebar"] * { color: #efffe8 !important; }
+        [data-testid="stSidebar"] button {
+            background: #15803d !important;
+            border: 1px solid #d9f99d !important;
+            color: #ffffff !important;
+        }
+        [data-testid="stSidebar"] button p,
+        [data-testid="stSidebar"] button span {
+            color: #ffffff !important;
+            font-weight: 800 !important;
+        }
+        [data-testid="stSidebar"] button:hover,
+        [data-testid="stSidebar"] button:focus {
+            background: #166534 !important;
+            border-color: #efffe8 !important;
+        }
         .block-container { max-width: 1180px; padding-top: 2rem; padding-bottom: 3rem; }
         h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
         p, label, .stMarkdown, .stTextInput { font-family: 'DM Sans', sans-serif; }
