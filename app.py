@@ -263,10 +263,13 @@ def render_auth() -> None:
             + "')\"></div>",
             unsafe_allow_html=True,
         )
+    registration_message = st.session_state.pop("registration_message", None)
     left, center, right = st.columns([1, 2, 1])
     with center:
         render_brand(light=True)
         st.markdown('<div class="login-wrap"><div class="eyebrow">Corra. Conecte-se. Supere-se.</div><h1>Seu ritmo, do seu jeito.</h1><p style="color:#64817b">Acompanhe cada quilômetro com privacidade e clareza.</p></div>', unsafe_allow_html=True)
+        if registration_message:
+            st.success(registration_message)
         login_tab, register_tab, recovery_tab = st.tabs(["Entrar", "Criar conta", "Recuperar acesso"])
         with login_tab:
             with st.form("login_form"):
@@ -301,7 +304,8 @@ def render_auth() -> None:
                     else:
                         ok, message = register_user(name, username, email, password, phone, photo.getvalue() if photo else None)
                         if ok:
-                            st.success(message + " Agora você já pode entrar.")
+                            st.session_state.registration_message = message + " Agora entre com seu e-mail e senha."
+                            st.rerun()
                         else:
                             st.error(message)
         with recovery_tab:
