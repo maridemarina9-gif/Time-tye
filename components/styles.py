@@ -43,11 +43,25 @@ def apply_styles(login: bool = False) -> None:
         [data-testid="stAppViewContainer"] > .main {{ position: relative; z-index: 1; }}
         [data-testid="stMainBlockContainer"] {{ position: relative; z-index: 1; }}
         div[data-testid="stTabs"] {{
-            background: rgba(255, 255, 255, .94);
-            border: 1px solid rgba(255, 255, 255, .72);
+            background: rgba(7, 31, 28, .52);
+            border: 1px solid rgba(255, 255, 255, .28);
             border-radius: 24px;
             box-shadow: 0 18px 50px rgba(7, 31, 28, .24);
             padding: .5rem 1.35rem 1.35rem;
+        }}
+        div[data-testid="stTabs"] button[data-baseweb="tab"],
+        div[data-testid="stTabs"] button[role="tab"],
+        div[data-testid="stTabs"] button[data-baseweb="tab"] *,
+        div[data-testid="stTabs"] button[role="tab"] * {{
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, .48);
+        }}
+        div[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"],
+        div[data-testid="stTabs"] button[role="tab"][aria-selected="true"],
+        div[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] *,
+        div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] * {{
+            color: #d9f99d !important;
         }}
         .login-wrap {{
             max-width: 420px;
