@@ -67,6 +67,15 @@ def apply_styles(login: bool = False) -> None:
         div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] {{
             color: #d9f99d !important;
         }}
+        .stTabs label,
+        .stTabs label p,
+        .stTabs [data-testid="stWidgetLabel"],
+        .stTabs [data-testid="stWidgetLabel"] *,
+        .stTabs [data-testid="stFileUploaderDropzone"] label {{
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, .55);
+        }}
         .login-wrap {{
             max-width: 420px;
             margin: 1.6rem auto .85rem;
