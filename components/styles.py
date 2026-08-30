@@ -1,9 +1,49 @@
 from __future__ import annotations
 
+import base64
+from pathlib import Path
+
 import streamlit as st
 
 
-def apply_styles() -> None:
+def _login_background_data_uri() -> str:
+    image_path = Path(__file__).resolve().parents[1] / "assets" / "login-background.jpg"
+    try:
+        encoded_image = base64.b64encode(image_path.read_bytes()).decode("ascii")
+    except OSError:
+        return ""
+    return f"data:image/jpeg;base64,{encoded_image}"
+
+
+def apply_styles(login: bool = False) -> None:
+    login_background = _login_background_data_uri() if login else ""
+    login_overrides = ""
+    if login_background:
+        login_overrides = f"""
+        .stApp {{
+            background:
+                linear-gradient(90deg, rgba(7, 31, 28, .88) 0%, rgba(7, 31, 28, .70) 34%, rgba(7, 31, 28, .28) 100%),
+                url("{login_background}") center center / cover fixed no-repeat;
+        }}
+        [data-testid="stAppViewContainer"] {{ background: transparent; }}
+        [data-testid="stMainBlockContainer"] {{ position: relative; }}
+        div[data-testid="stTabs"] {{
+            background: rgba(255, 255, 255, .94);
+            border: 1px solid rgba(255, 255, 255, .72);
+            border-radius: 24px;
+            box-shadow: 0 18px 50px rgba(7, 31, 28, .24);
+            padding: .5rem 1.35rem 1.35rem;
+        }}
+        .login-wrap {{
+            max-width: 520px;
+            margin: 3rem auto 1.2rem;
+            background: rgba(255, 255, 255, .93);
+            border-radius: 24px;
+            padding: 1.35rem 1.6rem;
+            box-shadow: 0 18px 50px rgba(7, 31, 28, .20);
+        }}
+        """
+
     st.markdown(
         """
         <style>
@@ -37,6 +77,9 @@ def apply_styles() -> None:
         .login-wrap { max-width:520px; margin:3rem auto; }
         button[kind="primary"] { background:#15803d !important; border-color:#15803d !important; }
         @media (max-width: 640px) { .block-container { padding:1rem .85rem 2rem; } .hero { padding:1.4rem; border-radius:20px; } .hero h1 { font-size:2.2rem; } }
+        """
+        + login_overrides
+        + """
         </style>
         """,
         unsafe_allow_html=True,
