@@ -257,7 +257,7 @@ def render_brand(light: bool = False) -> None:
 def render_auth() -> None:
     left, center, right = st.columns([1, 2, 1])
     with center:
-        render_brand()
+        render_brand(light=True)
         st.markdown('<div class="login-wrap"><div class="eyebrow">Corra. Conecte-se. Supere-se.</div><h1>Seu ritmo, do seu jeito.</h1><p style="color:#64817b">Acompanhe cada quilômetro com privacidade e clareza.</p></div>', unsafe_allow_html=True)
         login_tab, register_tab, recovery_tab = st.tabs(["Entrar", "Criar conta", "Recuperar acesso"])
         with login_tab:
@@ -594,6 +594,7 @@ def render_settings() -> None:
 def render_app() -> None:
     apply_session_defaults()
     restore_session()
+    apply_styles(login=not st.session_state.user)
     if not st.session_state.user:
         render_auth()
         return
@@ -616,5 +617,4 @@ def render_app() -> None:
 
 st.set_page_config(page_title="TIME TYE", page_icon="🏃", layout="wide", initial_sidebar_state="expanded")
 run_migrations()
-apply_styles()
 render_app()
