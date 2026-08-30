@@ -6,7 +6,7 @@ from pathlib import Path
 import streamlit as st
 
 
-def _login_background_data_uri() -> str:
+def get_login_background_data_uri() -> str:
     image_path = Path(__file__).resolve().parents[1] / "assets" / "login-background.jpg"
     try:
         encoded_image = base64.b64encode(image_path.read_bytes()).decode("ascii")
@@ -16,17 +16,32 @@ def _login_background_data_uri() -> str:
 
 
 def apply_styles(login: bool = False) -> None:
-    login_background = _login_background_data_uri() if login else ""
+    login_background = get_login_background_data_uri() if login else ""
     login_overrides = ""
     if login_background:
         login_overrides = f"""
         .stApp {{
-            background:
-                linear-gradient(90deg, rgba(7, 31, 28, .88) 0%, rgba(7, 31, 28, .70) 34%, rgba(7, 31, 28, .28) 100%),
-                url("{login_background}") center center / cover fixed no-repeat;
+            background: transparent !important;
         }}
-        [data-testid="stAppViewContainer"] {{ background: transparent; }}
-        [data-testid="stMainBlockContainer"] {{ position: relative; }}
+        [data-testid="stAppViewContainer"],
+        [data-testid="stAppViewContainer"] > .main,
+        [data-testid="stMain"],
+        [data-testid="stMainBlockContainer"] {{
+            background: transparent !important;
+        }}
+        .login-background-layer {{
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }}
+        [data-testid="stAppViewContainer"] > .main {{ position: relative; z-index: 1; }}
+        [data-testid="stMainBlockContainer"] {{ position: relative; z-index: 1; }}
         div[data-testid="stTabs"] {{
             background: rgba(255, 255, 255, .94);
             border: 1px solid rgba(255, 255, 255, .72);
