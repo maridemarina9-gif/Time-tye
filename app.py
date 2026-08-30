@@ -18,7 +18,7 @@ from auth.authentication import (
     reset_password,
     validate_registration,
 )
-from components.styles import apply_styles, metric_big, stat_card
+from components.styles import apply_styles, get_login_background_data_uri, metric_big, stat_card
 from database.database import get_connection
 from database.migrations import run_migrations
 from maps.live_map import get_public_live_locations
@@ -255,6 +255,14 @@ def render_brand(light: bool = False) -> None:
 
 
 def render_auth() -> None:
+    background_image = get_login_background_data_uri()
+    if background_image:
+        st.markdown(
+            '<div class="login-background-layer" style="background-image: linear-gradient(90deg, rgba(7, 31, 28, .88) 0%, rgba(7, 31, 28, .70) 34%, rgba(7, 31, 28, .28) 100%), url(\''
+            + background_image
+            + "')\"></div>",
+            unsafe_allow_html=True,
+        )
     left, center, right = st.columns([1, 2, 1])
     with center:
         render_brand(light=True)
