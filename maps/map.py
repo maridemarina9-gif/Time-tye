@@ -7,10 +7,13 @@ import pydeck as pdk
 import streamlit as st
 
 
+TIME_TYE_MAP_STYLE = "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+
+
 def _deck(*, initial_view_state: pdk.ViewState, layers: list[pdk.Layer], tooltip: dict, height: int) -> None:
-    """Render a map with PyDeck's token-free Carto basemap."""
+    """Render a map with the TIME TYE branded Carto basemap."""
     deck = pdk.Deck(
-        map_style="light",
+        map_style=TIME_TYE_MAP_STYLE,
         initial_view_state=initial_view_state,
         layers=layers,
         tooltip=tooltip,
