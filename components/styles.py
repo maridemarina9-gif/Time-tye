@@ -87,10 +87,16 @@ def apply_styles(login: bool = False) -> None:
         .login-wrap {{
             max-width: 420px;
             margin: 1.6rem auto .85rem;
-            background: rgba(255, 255, 255, .93);
-            border-radius: 24px;
-            padding: .85rem 1.1rem;
-            box-shadow: 0 18px 50px rgba(7, 31, 28, .20);
+            background: transparent;
+            border: 0;
+            padding: 0;
+            box-shadow: none;
+        }}
+        .login-wrap .eyebrow,
+        .login-wrap h1,
+        .login-wrap p {{
+            color: #ffffff !important;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, .62);
         }}
         .login-wrap h1 {{
             font-size: clamp(1.65rem, 4vw, 2.25rem);
