@@ -15,6 +15,15 @@ def get_login_background_data_uri() -> str:
     return f"data:image/jpeg;base64,{encoded_image}"
 
 
+def get_login_ad_video_data_uri() -> str:
+    video_path = Path(__file__).resolve().parents[1] / "assets" / "time-tye-ad-login.mp4"
+    try:
+        encoded_video = base64.b64encode(video_path.read_bytes()).decode("ascii")
+    except OSError:
+        return ""
+    return f"data:video/mp4;base64,{encoded_video}"
+
+
 def apply_styles(login: bool = False) -> None:
     login_background = get_login_background_data_uri() if login else ""
     login_overrides = ""
@@ -39,6 +48,27 @@ def apply_styles(login: bool = False) -> None:
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
+        }}
+        .login-ad-video {{
+            position: fixed;
+            z-index: 0;
+            left: 55.5vw;
+            top: 54.9vh;
+            width: 17.6vw;
+            height: 40.4vh;
+            object-fit: cover;
+            clip-path: polygon(2% 0%, 98% 1%, 100% 98%, 4% 100%);
+            filter: saturate(.94) brightness(.96);
+            box-shadow: 0 0 18px rgba(255, 230, 170, .34);
+            pointer-events: none;
+        }}
+        @media (max-width: 900px) {{
+            .login-ad-video {{
+                left: 57.7vw;
+                top: 51.8vh;
+                width: 25.4vw;
+                height: 15.1vh;
+            }}
         }}
         [data-testid="stAppViewContainer"] > .main {{ position: relative; z-index: 1; }}
         [data-testid="stMainBlockContainer"] {{ position: relative; z-index: 1; }}
