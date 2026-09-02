@@ -18,7 +18,7 @@ from auth.authentication import (
     reset_password,
     validate_registration,
 )
-from components.styles import apply_styles, get_login_background_data_uri, metric_big, stat_card
+from components.styles import apply_styles, get_login_ad_video_data_uri, get_login_background_data_uri, metric_big, stat_card
 from database.database import get_connection
 from database.migrations import run_migrations
 from maps.live_map import get_public_live_locations
@@ -261,6 +261,14 @@ def render_auth() -> None:
             '<div class="login-background-layer" style="background-image: linear-gradient(90deg, rgba(7, 31, 28, .88) 0%, rgba(7, 31, 28, .70) 34%, rgba(7, 31, 28, .28) 100%), url(\''
             + background_image
             + "')\"></div>",
+            unsafe_allow_html=True,
+        )
+    ad_video = get_login_ad_video_data_uri()
+    if ad_video:
+        st.markdown(
+            '<video class="login-ad-video" autoplay muted loop playsinline preload="metadata" aria-label="Anúncio do TIME TYE" disablepictureinpicture><source src="'
+            + ad_video
+            + '" type="video/mp4"></video>',
             unsafe_allow_html=True,
         )
     registration_message = st.session_state.pop("registration_message", None)
